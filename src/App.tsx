@@ -5,8 +5,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-
-          {/*
+        {/*
             <app-route-selector (close)="suppressUpdates(false)" (open)="suppressUpdates(true)"></app-route-selector>
 <div class="row">
   <ul class="from">
@@ -28,8 +27,6 @@ const App: React.FC = () => {
 
 
           */}
-
-
       </header>
     </div>
   );
