@@ -1,11 +1,25 @@
 import React from 'react';
 import './App.css';
+import TransportRouteSelector from "./components/TransportRouteSelector";
+// import {ScheduleService} from "./services/schedule.service";
+// import {ConfigService} from "./services/config.service";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        {/*
+export default class App extends React.Component<{}, { selectedRoute: string }> {
+
+    state = {selectedRoute: '17A'};
+
+
+    componentDidMount() {
+
+        this.setState( {selectedRoute: '17A'});
+    }
+    render() {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <TransportRouteSelector selectedRoute={this.state.selectedRoute}
+                                            onRouteChange={val => this.setState({selectedRoute: val})}/>
+                    {/*
             <app-route-selector (close)="suppressUpdates(false)" (open)="suppressUpdates(true)"></app-route-selector>
 <div class="row">
   <ul class="from">
@@ -27,9 +41,8 @@ const App: React.FC = () => {
 
 
           */}
-      </header>
-    </div>
-  );
+                </header>
+            </div>
+        );
+    }
 };
-
-export default App;
