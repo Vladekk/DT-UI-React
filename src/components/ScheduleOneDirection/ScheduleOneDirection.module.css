@@ -1,0 +1,25 @@
+
+ul {
+    font-size: 5vh;
+    display: block;
+    list-style-type: none;
+    font-family: Calibri, Verdana, sans-serif;
+    margin-top: 0;
+}
+
+
+li:first-child {
+    font-weight: bold;
+    font-size: 6vh;
+    color: #1a5600;
+
+}
+
+.to li:first-child {
+    color: darkred;
+}
+
+.highlight {
+    color: red;
+    font-weight: bolder;
+}

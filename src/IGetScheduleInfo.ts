@@ -1,4 +1,4 @@
 
 export interface IGetScheduleInfo {
-  GetScheduleInfo(busNumber: string): [Date[], Date[]]
+  GetScheduleInfo(busNumber: string): Promise<[Date[], Date[]]>
 }

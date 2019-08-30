@@ -1,14 +1,17 @@
 import React from 'react';
-import {ScheduleService} from "../services/schedule.service";
-import {ConfigService} from "../services/config.service";
-import {IRoute} from "../services/IRoute";
+import {ScheduleService} from "../../services/schedule.service";
+import {ConfigService} from "../../services/config.service";
+import {IRoute} from "../../services/IRoute";
+import styles from './TransportRouteSelector.module.css';
 
 type TransportRouteSelectorProps = {
     selectedRoute: string,
     onRouteChange: (val: string) => void
 }
 
+
 export default class TransportRouteSelector extends React.Component<TransportRouteSelectorProps, { routes: IRoute[] }> {
+
     constructor(props: TransportRouteSelectorProps) {
         super(props);
         this.state = {routes: []};
@@ -16,6 +19,7 @@ export default class TransportRouteSelector extends React.Component<TransportRou
     }
 
     componentDidMount() {
+
         let service = new ScheduleService(new ConfigService());
         service.GetAllRoutes().then((val) => {
             this.setState({routes: val});
@@ -26,8 +30,7 @@ export default class TransportRouteSelector extends React.Component<TransportRou
 
     render() {
         return <React.Fragment>
-            <h1>{this.props.selectedRoute}</h1>
-            <select onChange={event => {
+            <select className={styles.select} onChange={event => {
                 event.preventDefault();
                 this.select(event.target.value);
             }} value={this.props.selectedRoute}>
@@ -37,7 +40,6 @@ export default class TransportRouteSelector extends React.Component<TransportRou
             </select>
         </React.Fragment>;
     }
-
 
     private select(routeNum: string) {
         this.props.onRouteChange(routeNum);

@@ -1,0 +1,17 @@
+/*label, button {*/
+/*    font-size: 4vh;*/
+/*}*/
+
+/*.outerRow {*/
+/*    margin-top: 4vh;*/
+/*}*/
+
+/*div, span,*/
+select {
+    margin-top: 4vh;
+    font-size: 6vh;
+}
+
+select option {
+    font-size: 3vh;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
-import './App.css';
-import TransportRouteSelector from "./components/TransportRouteSelector";
+import styles from './App.module.css';
+import TransportRouteSelector from "./components/TransportRouteSelector/TransportRouteSelector";
+import ScheduleOneDirection from "./components/ScheduleOneDirection/ScheduleOneDirection";
 // import {ScheduleService} from "./services/schedule.service";
 // import {ConfigService} from "./services/config.service";
 
@@ -11,14 +12,17 @@ export default class App extends React.Component<{}, { selectedRoute: string }> 
 
     componentDidMount() {
 
-        this.setState( {selectedRoute: '17A'});
+        this.setState({selectedRoute: '17A'});
     }
+
     render() {
         return (
-            <div className="App">
+            <div className={styles.app}>
                 <header className="App-header">
                     <TransportRouteSelector selectedRoute={this.state.selectedRoute}
                                             onRouteChange={val => this.setState({selectedRoute: val})}/>
+                    <ScheduleOneDirection isFromCentralStation={true} selectedRoute={this.state.selectedRoute}/>
+                    <ScheduleOneDirection isFromCentralStation={false} selectedRoute={this.state.selectedRoute}/>
                     {/*
             <app-route-selector (close)="suppressUpdates(false)" (open)="suppressUpdates(true)"></app-route-selector>
 <div class="row">

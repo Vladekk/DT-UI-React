@@ -2,33 +2,22 @@
 import {Route} from './Route';
 import {IGetScheduleInfo} from '../IGetScheduleInfo';
 import {ConfigService} from "./config.service";
+import {boundClass} from 'autobind-decorator'
+import {DtUtils} from './DtUtils/DtUtils'
 
+@boundClass
 export class ScheduleService implements IGetScheduleInfo {
     constructor(private configService: ConfigService) {
 
     }
 
-    GetScheduleInfo(busNumber: string): [Date[], Date[]] {
+    private takeHowMuch = 4;
 
-        // fetch(this.configService.ScheduleServiceUrl)
-        //     .then(res => res.json())
-        //     .then(
-        //         (result) => {
-        //
-        //         },
-        //         // Note: it's important to handle errors here
-        //         // instead of a catch() block so that we don't swallow
-        //         // exceptions from actual bugs in components.
-        //         (error) => {
-        //             throw error;
-        //         }
-        //     );
+    private static getProperDate(str: string): Date {
+        const date = new Date(Date.parse(str));
+        return new Date(date.getTime() - DtUtils.GetRigaTzOffsetInMs());
 
-        return [[], []];
-    }
-
-
-    // private takeHowMuch = 4;
+    };
 
 
     // constructor(
@@ -42,53 +31,44 @@ export class ScheduleService implements IGetScheduleInfo {
     //   });
     // }
     //
-    // @bind
-    // private getProperDate(str): Date {
-    //   const date = new Date(Date.parse(str));
-    //   return new Date(date.getTime() - DtUtils.GetRigaTzOffsetInMs());
-    //
-    // };
-    //
-    // @bind
-    // private fixDates([fromCenter, toCenter]: [string[], string[]]) {
-    //   // this is hack to parse dates in json
-    //   const result: [Date[], Date[]] =
-    //     [fromCenter.map(this.getProperDate).slice(0, this.takeHowMuch),
-    //       toCenter.map(this.getProperDate).slice(0, this.takeHowMuch)];
-    //   return result;
-    // };
-    //
-    // GetScheduleInfo(busNumber: string): Observable<[Date[], Date[]]> {
-    //   this.logService.Log(`Subscribing to fetch route data ${busNumber}`);
-    //   return this.http.post<[string[], string[]]>(this.configService.ScheduleServiceUrl + 'GetClosestRuns', {BusNumber: busNumber}, {
-    //     headers:
-    //       {'Content-Type': 'application/json'}
-    //   })
-    //     .pipe(map(this.fixDates));
-    // }
-    //
+
+    async GetScheduleInfo(busNumber: string): Promise<[Date[], Date[]]> {
+
+        return await fetch(this.configService.ScheduleServiceUrl + 'GetClosestRuns',
+            {
+                headers: {
+                    'Content-Type': 'application/json', 'Sec-Fetch-Site': 'cross-site'
+                },
+                method: 'post',
+                body: JSON.stringify({BusNumber: busNumber})
+            }
+        )
+            .then(async res => {
+                    let data = this.fixDates(await res.json());
+                    return data;
+                }
+            );
+    }
+
     async GetAllRoutes(): Promise<Route[]> {
         const routes: Response = await fetch(this.configService.ScheduleServiceUrl + 'GetAllRoutes',
-            {headers: {'Content-Type': 'application/json','Sec-Fetch-Site':'cross-site'
-              },
-              method: 'post',
-              body:'{}',
-              mode: 'cors',
+            {
+                headers: {
+                    'Content-Type': 'application/json', 'Sec-Fetch-Site': 'cross-site'
+                },
+                method: 'post',
+                body: '{}',
 
             });
-        // .then(res => res.json())
-        // .then(
-        //     (result) => {
-        //
-        //     },
-        //     // Note: it's important to handle errors here
-        //     // instead of a catch() block so that we don't swallow
-        //     // exceptions from actual bugs in components.
-        //     (error) => {
-        //         throw error;
-        //     }
-        // )
         return routes.json();
 
     }
+
+    private fixDates([fromCenter, toCenter]: [string[], string[]]) {
+        // this is hack to parse dates in json
+        const result: [Date[], Date[]] =
+            [fromCenter.map(ScheduleService.getProperDate).slice(0, this.takeHowMuch),
+                toCenter.map(ScheduleService.getProperDate).slice(0, this.takeHowMuch)];
+        return result;
+    };
 }
