@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './App.module.css';
 import TransportRouteSelector from "./components/TransportRouteSelector/TransportRouteSelector";
 import ScheduleOneDirection from "./components/ScheduleOneDirection/ScheduleOneDirection";
+import Spinner from "./components/Spinner/Spinner";
 // import {ScheduleService} from "./services/schedule.service";
 // import {ConfigService} from "./services/config.service";
 
@@ -17,7 +18,11 @@ export default class App extends React.Component<{}, { selectedRoute: string }> 
 
     render() {
         return (
+
             <div className={styles.app}>
+
+                <Spinner/>
+
                 <header className="App-header">
                     <TransportRouteSelector selectedRoute={this.state.selectedRoute}
                                             onRouteChange={val => this.setState({selectedRoute: val})}/>
