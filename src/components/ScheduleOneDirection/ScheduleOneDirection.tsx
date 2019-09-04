@@ -6,7 +6,8 @@ import styles from './ScheduleOneDirection.module.css'
 
 type Props = {
     selectedRoute: string,
-    isFromCentralStation: boolean
+    isFromCentralStation: boolean,
+    onLoadingData: (isLoading: boolean) => void
 }
 
 type State = { routeInfos: Date[], now: Date, intervalHandle: number };
@@ -78,9 +79,11 @@ export default class ScheduleOneDirection extends React.Component<Props, State> 
     private async FetchScheduleForSelectedRoute(selectedRoute: string, isFromCentralStation: boolean) {
         let service = new ScheduleService(new ConfigService());
         // noinspection JSUnusedLocalSymbols
+        this.props.onLoadingData(true);
         const val = await service.GetScheduleInfo(selectedRoute);
         const infos = isFromCentralStation ? val[0] : val[1];
         this.setState({routeInfos: infos});
+        this.props.onLoadingData(false);
 
 
     }

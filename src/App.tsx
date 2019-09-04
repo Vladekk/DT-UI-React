@@ -3,31 +3,53 @@ import styles from './App.module.css';
 import TransportRouteSelector from "./components/TransportRouteSelector/TransportRouteSelector";
 import ScheduleOneDirection from "./components/ScheduleOneDirection/ScheduleOneDirection";
 import Spinner from "./components/Spinner/Spinner";
+import autobind from 'autobind-decorator'
 // import {ScheduleService} from "./services/schedule.service";
 // import {ConfigService} from "./services/config.service";
 
-export default class App extends React.Component<{}, { selectedRoute: string }> {
+type State = {
+    selectedRoute: string,
+    isLoadingData: number
+};
+type Props = {}
 
-    state = {selectedRoute: '17A'};
+@autobind
+export default class App extends React.Component<{}, State> {
+    state = {selectedRoute: '17A', isLoadingData: 1};
 
+    constructor(props: Props) {
+        super(props);
+        this.onLoadingData(true);
+    }
 
     componentDidMount() {
 
         this.setState({selectedRoute: '17A'});
+        this.onLoadingData(false);
     }
 
+    onLoadingData(isLoading: boolean) {
+        this.setState((state) => {
+            return {isLoadingData: state.isLoadingData + (isLoading ? 1 : -1)};
+        });
+    };
+
     render() {
+
         return (
 
             <div className={styles.app}>
 
-                <Spinner/>
+                <Spinner enable={this.state.isLoadingData > 0}/>
 
                 <header className="App-header">
                     <TransportRouteSelector selectedRoute={this.state.selectedRoute}
-                                            onRouteChange={val => this.setState({selectedRoute: val})}/>
-                    <ScheduleOneDirection isFromCentralStation={true} selectedRoute={this.state.selectedRoute}/>
-                    <ScheduleOneDirection isFromCentralStation={false} selectedRoute={this.state.selectedRoute}/>
+                                            onRouteChange={val => this.setState({selectedRoute: val})}
+                                            onLoadingData={this.onLoadingData}/>
+                    <ScheduleOneDirection isFromCentralStation={true} selectedRoute={this.state.selectedRoute}
+                                          onLoadingData={this.onLoadingData}/>
+                    <ScheduleOneDirection isFromCentralStation={false} selectedRoute={this.state.selectedRoute}
+                                          onLoadingData={this.onLoadingData}/>
                     {/*
             <app-route-selector (close)="suppressUpdates(false)" (open)="suppressUpdates(true)"></app-route-selector>
 <div class="row">

@@ -3,28 +3,31 @@ import {ScheduleService} from "../../services/schedule.service";
 import {ConfigService} from "../../services/config.service";
 import {IRoute} from "../../services/IRoute";
 import styles from './TransportRouteSelector.module.css';
+import autobind from "autobind-decorator";
 
-type TransportRouteSelectorProps = {
+type Props = {
     selectedRoute: string,
-    onRouteChange: (val: string) => void
+    onRouteChange: (val: string) => void,
+    onLoadingData: (isLoading: boolean) => void
 }
 
+@autobind
+export default class TransportRouteSelector extends React.Component<Props, { routes: IRoute[] }> {
 
-export default class TransportRouteSelector extends React.Component<TransportRouteSelectorProps, { routes: IRoute[] }> {
-
-    constructor(props: TransportRouteSelectorProps) {
+    constructor(props: Props) {
         super(props);
         this.state = {routes: []};
         this.select = this.select.bind(this);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
 
         let service = new ScheduleService(new ConfigService());
-        service.GetAllRoutes().then((val) => {
-            this.setState({routes: val});
-            this.select(this.props.selectedRoute);
-        })
+        this.props.onLoadingData(true);
+        const val = await service.GetAllRoutes();
+        this.setState({routes: val});
+        this.select(this.props.selectedRoute);
+        this.props.onLoadingData(false);
 
     }
 
