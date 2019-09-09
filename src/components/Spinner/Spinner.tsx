@@ -38,6 +38,7 @@ export default class Spinner extends React.Component<Props, {}> {
             backgroundColor: 'rgba(0,0,0,0.6)',
             display: this.props.enable ? "block" : "none"
         }}>
+
             <div style={spinnerStyle} className={'la-cog'}>
                 <div></div>
             </div>
