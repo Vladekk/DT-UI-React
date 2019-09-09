@@ -33,14 +33,16 @@ export default class TransportRouteSelector extends React.Component<Props, { rou
 
     render() {
         return <React.Fragment>
-            <select className={styles.select} onChange={event => {
-                event.preventDefault();
-                this.select(event.target.value);
-            }} value={this.props.selectedRoute}>
-                {this.state.routes.map(r => <option key={r.Number} value={r.Number}>
-                    {r.Number}
-                </option>)}
-            </select>
+            <div className={styles.outerDiv}>
+                <select className={styles.select} onChange={event => {
+                    event.preventDefault();
+                    this.select(event.target.value);
+                }} value={this.props.selectedRoute}>
+                    {this.state.routes.map(r => <option key={r.Number} value={r.Number}>
+                        {r.Number}
+                    </option>)}
+                </select>
+            </div>
         </React.Fragment>;
     }
 
