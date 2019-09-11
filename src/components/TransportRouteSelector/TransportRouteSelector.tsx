@@ -22,6 +22,7 @@ export default class TransportRouteSelector extends React.Component<Props, { rou
         this.select = this.select.bind(this);
     }
 
+    routesInCol = 12;
     static contextType = SpinnerContext;
     context!: React.ContextType<typeof SpinnerContext>;
 
@@ -38,6 +39,7 @@ export default class TransportRouteSelector extends React.Component<Props, { rou
     }
 
     render() {
+        const columnCount = Math.round(this.state.routes.length / this.routesInCol);
         return <React.Fragment>
             <div className={styles.outerDiv}>
                 <Dropdown id="dropdown-basic-button" onSelect={(key: any, event: any) => {
@@ -46,14 +48,27 @@ export default class TransportRouteSelector extends React.Component<Props, { rou
                 }} className={styles.select}>
 
                     <Dropdown.Toggle id="dropdown-basic" title={this.props.selectedRoute} variant='warning'
-                                     className={styles.select}>
+                                     className={styles.select}
+                    >
                         {this.props.selectedRoute}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        {this.state.routes.map(r => <Dropdown.Item className={styles.item} eventKey={r.Number}
-                                                                   key={r.Number} value={r.Number}>
-                            {r.Number}
-                        </Dropdown.Item>)}
+
+                        {
+
+                            [...Array(columnCount).keys()].map(i => {
+
+                                return <div style={{float: 'left'}} key={'col' + i.toString()}> {
+                                    this.state.routes.slice(i * this.routesInCol, (i + 1) * this.routesInCol).map((r) => {
+
+                                        return <Dropdown.Item className={styles.item} eventKey={r.Number}
+                                                              key={r.Number} value={r.Number}>
+                                            {r.Number}
+                                        </Dropdown.Item>;
+                                    })}</div>;
+
+
+                            })}
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
