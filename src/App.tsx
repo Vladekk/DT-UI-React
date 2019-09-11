@@ -16,13 +16,14 @@ type Props = {}
 
 @autobind
 export default class App extends React.Component<{}, State> {
-    state = {
-        selectedRoute: '17A', isLoading: 1
-    };
+
 
     constructor(props: Props) {
         super(props);
-        this.loading(true);
+        this.state = {
+            selectedRoute: '17A', isLoading: 1
+        };
+
     }
 
     componentDidMount() {
