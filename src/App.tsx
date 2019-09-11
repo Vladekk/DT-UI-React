@@ -4,53 +4,60 @@ import TransportRouteSelector from "./components/TransportRouteSelector/Transpor
 import ScheduleOneDirection from "./components/ScheduleOneDirection/ScheduleOneDirection";
 import Spinner from "./components/Spinner/Spinner";
 import autobind from 'autobind-decorator'
+import {SpinnerContext} from "./components/Spinner/SpinnerContext";
 // import {ScheduleService} from "./services/schedule.service";
 // import {ConfigService} from "./services/config.service";
 
 type State = {
     selectedRoute: string,
-    isLoadingData: number
+    isLoading: number
 };
 type Props = {}
 
 @autobind
 export default class App extends React.Component<{}, State> {
-    state = {selectedRoute: '17A', isLoadingData: 1};
+    state = {
+        selectedRoute: '17A', isLoading: 1
+    };
 
     constructor(props: Props) {
         super(props);
-        this.onLoadingData(true);
+        this.loading(true);
     }
 
     componentDidMount() {
 
         this.setState({selectedRoute: '17A'});
-        this.onLoadingData(false);
+        this.loading(false);
     }
 
-    onLoadingData(isLoading: boolean) {
-        this.setState((state) => {
-            return {isLoadingData: state.isLoadingData + (isLoading ? 1 : -1)};
-        });
-    };
+    loading = (isLoading: Boolean) => this.setState((state) => {
+
+        return {isLoading: state.isLoading + (isLoading ? 1 : -1)};
+    });
 
     render() {
+
 
         return (
 
             <div className={styles.app}>
+                <SpinnerContext.Provider
+                    value={{
+                        loadingCounter: this.state.isLoading,
+                        loading: this.loading
+                    }}>
+                    <Spinner/>
 
-                <Spinner enable={this.state.isLoadingData > 0}/>
-
-                <header className="App-header">
-                    <TransportRouteSelector selectedRoute={this.state.selectedRoute}
-                                            onRouteChange={val => this.setState({selectedRoute: val})}
-                                            onLoadingData={this.onLoadingData}/>
-                    <ScheduleOneDirection isFromCentralStation={true} selectedRoute={this.state.selectedRoute}
-                                          onLoadingData={this.onLoadingData}/>
-                    <ScheduleOneDirection isFromCentralStation={false} selectedRoute={this.state.selectedRoute}
-                                          onLoadingData={this.onLoadingData}/>
-                    {/*
+                    <header className="App-header">
+                        <TransportRouteSelector selectedRoute={this.state.selectedRoute}
+                                                onRouteChange={val => this.setState({selectedRoute: val})}
+                        />
+                        <ScheduleOneDirection isFromCentralStation={true} selectedRoute={this.state.selectedRoute}
+                        />
+                        <ScheduleOneDirection isFromCentralStation={false} selectedRoute={this.state.selectedRoute}
+                        />
+                        {/*
             <app-route-selector (close)="suppressUpdates(false)" (open)="suppressUpdates(true)"></app-route-selector>
 <div class="row">
   <ul class="from">
@@ -72,7 +79,8 @@ export default class App extends React.Component<{}, State> {
 
 
           */}
-                </header>
+                    </header>
+                </SpinnerContext.Provider>
             </div>
         );
     }

@@ -1,22 +1,24 @@
 import React from "react";
 // @ts-ignore
 import 'load-awesome-react-components/dist/misc/cog.css';
+import {SpinnerContext} from "./SpinnerContext";
 
 type Props = {
-    enable: boolean
+
 };
 export default class Spinner extends React.Component<Props, {}> {
     style = {color: 'red'};
     private readonly el: HTMLDivElement;
-    static defaultProps = {enable: false};
+    static defaultProps = {};
 
     constructor(props: Props) {
         super(props);
         this.el = document.createElement('div');
-        this.el.hidden = !props.enable;
         document.children[0].appendChild(this.el);
     }
 
+    static contextType = SpinnerContext;
+    context!: React.ContextType<typeof SpinnerContext>;
 
     render() {
         // noinspection CheckTagEmptyBody
@@ -36,7 +38,7 @@ export default class Spinner extends React.Component<Props, {}> {
             width: '100%',
             height: '100%',
             backgroundColor: 'rgba(0,0,0,0.6)',
-            display: this.props.enable ? "block" : "none"
+            display: (this.context.loadingCounter !== 0) ? "block" : "none"
         }}>
 
             <div style={spinnerStyle} className={'la-cog'}>

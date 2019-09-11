@@ -2,12 +2,13 @@ import React from 'react';
 import {ScheduleService} from "../../services/schedule.service";
 import {ConfigService} from "../../services/config.service";
 import styles from './ScheduleOneDirection.module.css'
+import {SpinnerContext} from "../Spinner/SpinnerContext";
 
 
 type Props = {
     selectedRoute: string,
-    isFromCentralStation: boolean,
-    onLoadingData: (isLoading: boolean) => void
+    isFromCentralStation: boolean
+
 }
 
 type State = { routeInfos: Date[], now: Date, intervalHandle: number };
@@ -19,6 +20,9 @@ export default class ScheduleOneDirection extends React.Component<Props, State> 
         this.state = {routeInfos: [], now: new Date(), intervalHandle: -1};
 
     }
+
+    static contextType = SpinnerContext;
+    context!: React.ContextType<typeof SpinnerContext>;
 
     componentWillUnmount(): void {
         clearInterval(this.state.intervalHandle);
@@ -79,11 +83,11 @@ export default class ScheduleOneDirection extends React.Component<Props, State> 
     private async FetchScheduleForSelectedRoute(selectedRoute: string, isFromCentralStation: boolean) {
         let service = new ScheduleService(new ConfigService());
         // noinspection JSUnusedLocalSymbols
-        this.props.onLoadingData(true);
+        this.context.loading(true);
         const val = await service.GetScheduleInfo(selectedRoute);
         const infos = isFromCentralStation ? val[0] : val[1];
         this.setState({routeInfos: infos});
-        this.props.onLoadingData(false);
+        this.context.loading(false);
 
 
     }
