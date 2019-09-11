@@ -4,7 +4,8 @@ import {ConfigService} from "../../services/config.service";
 import {IRoute} from "../../services/IRoute";
 import autobind from "autobind-decorator";
 import {SpinnerContext} from "../Spinner/SpinnerContext";
-import {Dropdown, DropdownButton} from "react-bootstrap";
+import {Dropdown} from "react-bootstrap";
+import styles from './TransportRouteSelector.module.css'
 
 type Props = {
     selectedRoute: string,
@@ -38,16 +39,24 @@ export default class TransportRouteSelector extends React.Component<Props, { rou
 
     render() {
         return <React.Fragment>
-            <DropdownButton id="dropdown-basic-button" title={this.props.selectedRoute} variant='warning'
-                            onSelect={(key: any, event: any) => {
-                                event.preventDefault();
-                                this.select(key);
-                            }}>
-                {this.state.routes.map(r => <Dropdown.Item eventKey={r.Number} key={r.Number} value={r.Number}>
-                    {r.Number}
-                </Dropdown.Item>)}
+            <div className={styles.outerDiv}>
+                <Dropdown id="dropdown-basic-button" onSelect={(key: any, event: any) => {
+                    event.preventDefault();
+                    this.select(key);
+                }} className={styles.select}>
 
-            </DropdownButton>
+                    <Dropdown.Toggle id="dropdown-basic" title={this.props.selectedRoute} variant='warning'
+                                     className={styles.select}>
+                        {this.props.selectedRoute}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {this.state.routes.map(r => <Dropdown.Item className={styles.item} eventKey={r.Number}
+                                                                   key={r.Number} value={r.Number}>
+                            {r.Number}
+                        </Dropdown.Item>)}
+                    </Dropdown.Menu>
+                </Dropdown>
+            </div>
         </React.Fragment>;
     }
 

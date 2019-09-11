@@ -1,15 +1,16 @@
-select {
-    margin-top: 4vh;
-    font-size: 6vh;
-
+.select {
+    margin-top: 2vh;
+    font-size: 4vh;
+    font-weight: bold;
 }
 
 .outerDiv {
+    margin-top: 1vh;
     margin-left: auto;
     margin-right: auto;
-    width: 15vw;
-}
-select option {
-    font-size: 3vh;
+    width: 37vw;
 }
 
+.item {
+    font-size: 3vh;
+}

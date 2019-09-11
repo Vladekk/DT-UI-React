@@ -1,18 +1,18 @@
 
 ul {
-    font-size: 5vh;
+    font-size: 4vh;
     display: block;
     list-style-type: none;
     font-family: Calibri, Verdana, sans-serif;
-    margin-top: 0;
+    margin-top: 1vh;
 }
 
 
-li:first-child {
+h3 {
     font-weight: bold;
-    font-size: 6vh;
+    font-size: 4vh;
     color: #1a5600;
-
+    margin-top: 4vh;
 }
 
 .to li:first-child {

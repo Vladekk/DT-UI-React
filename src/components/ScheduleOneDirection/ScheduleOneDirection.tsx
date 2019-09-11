@@ -52,32 +52,13 @@ export default class ScheduleOneDirection extends React.Component<Props, State> 
 
     render() {
         return <React.Fragment>
-            <div>
-                <ul>
-                    <li>{this.props.isFromCentralStation ? "From center" : "To center"}</li>
-                    {this.state.routeInfos.map(row => <li key={row.toString()}
-                                                          className={this.IsClosestToNow(row, this.state.routeInfos) ? styles.highlight : ''}>{this.formatRow(row)}</li>)}
-                </ul>
-            </div>
-            {/*    <div class="row">
-  <ul class="from">
-    <li>From autoosta</li>
-    <li *ngFor="let row of fromCenterSchedule$ | async" [ngClass]="{'highlight':row.IsClosest}">
-      {{ (row.RunTime) | date:'shortTime' }}
-    </li>
-  </ul>
-</div>
-<div class="row">
-  <ul class="to">
-    <li>From end station</li>
-    <li *ngFor="let row of toCenterSchedule$ | async" [ngClass]="{'highlight':row.IsClosest}">
-      {{  [row.RunTime] | date:'shortTime' }}
-    </li>
-  </ul>
-</div>
-
-*/}
+            <h3>{this.props.isFromCentralStation ? "From center" : "To center"}</h3>
+            <ul>
+                {this.state.routeInfos.map(row => <li key={row.toString()}
+                                                      className={this.IsClosestToNow(row, this.state.routeInfos) ? styles.highlight : ''}>{this.formatRow(row)}</li>)}
+            </ul>
         </React.Fragment>;
+
     }
 
     private async FetchScheduleForSelectedRoute(selectedRoute: string, isFromCentralStation: boolean) {
