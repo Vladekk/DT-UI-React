@@ -2,9 +2,9 @@ import React from 'react';
 import {ScheduleService} from "../../services/schedule.service";
 import {ConfigService} from "../../services/config.service";
 import {IRoute} from "../../services/IRoute";
-import styles from './TransportRouteSelector.module.css';
 import autobind from "autobind-decorator";
 import {SpinnerContext} from "../Spinner/SpinnerContext";
+import {Dropdown, DropdownButton} from "react-bootstrap";
 
 type Props = {
     selectedRoute: string,
@@ -38,16 +38,16 @@ export default class TransportRouteSelector extends React.Component<Props, { rou
 
     render() {
         return <React.Fragment>
-            <div className={styles.outerDiv}>
-                <select className={styles.select} onChange={event => {
-                    event.preventDefault();
-                    this.select(event.target.value);
-                }} value={this.props.selectedRoute}>
-                    {this.state.routes.map(r => <option key={r.Number} value={r.Number}>
-                        {r.Number}
-                    </option>)}
-                </select>
-            </div>
+            <DropdownButton id="dropdown-basic-button" title={this.props.selectedRoute} variant='warning'
+                            onSelect={(key: any, event: any) => {
+                                event.preventDefault();
+                                this.select(key);
+                            }}>
+                {this.state.routes.map(r => <Dropdown.Item eventKey={r.Number} key={r.Number} value={r.Number}>
+                    {r.Number}
+                </Dropdown.Item>)}
+
+            </DropdownButton>
         </React.Fragment>;
     }
 
