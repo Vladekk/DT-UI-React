@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "upside.down.pictures/static/css/main.3fa2395e.chunk.css",
-    "main.js": "upside.down.pictures/static/js/main.075951f2.chunk.js",
-    "main.js.map": "upside.down.pictures/static/js/main.075951f2.chunk.js.map",
-    "runtime~main.js": "upside.down.pictures/static/js/runtime~main.52973d97.js",
-    "runtime~main.js.map": "upside.down.pictures/static/js/runtime~main.52973d97.js.map",
-    "static/css/2.7f02559e.chunk.css": "upside.down.pictures/static/css/2.7f02559e.chunk.css",
-    "static/js/2.05dd447a.chunk.js": "upside.down.pictures/static/js/2.05dd447a.chunk.js",
-    "static/js/2.05dd447a.chunk.js.map": "upside.down.pictures/static/js/2.05dd447a.chunk.js.map",
-    "index.html": "upside.down.pictures/index.html",
-    "precache-manifest.e60ce923665304bcd3a5e0508c59bc3e.js": "upside.down.pictures/precache-manifest.e60ce923665304bcd3a5e0508c59bc3e.js",
-    "service-worker.js": "upside.down.pictures/service-worker.js",
-    "static/css/2.7f02559e.chunk.css.map": "upside.down.pictures/static/css/2.7f02559e.chunk.css.map",
-    "static/css/main.3fa2395e.chunk.css.map": "upside.down.pictures/static/css/main.3fa2395e.chunk.css.map"
+    "main.css": "/static/css/main.3fa2395e.chunk.css",
+    "main.js": "/static/js/main.15804ef4.chunk.js",
+    "main.js.map": "/static/js/main.15804ef4.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.bed5559f.js",
+    "runtime~main.js.map": "/static/js/runtime~main.bed5559f.js.map",
+    "static/css/2.7f02559e.chunk.css": "/static/css/2.7f02559e.chunk.css",
+    "static/js/2.690356a9.chunk.js": "/static/js/2.690356a9.chunk.js",
+    "static/js/2.690356a9.chunk.js.map": "/static/js/2.690356a9.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.f094ec3fb1eb28791555d9cb7d25078a.js": "/precache-manifest.f094ec3fb1eb28791555d9cb7d25078a.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.7f02559e.chunk.css.map": "/static/css/2.7f02559e.chunk.css.map",
+    "static/css/main.3fa2395e.chunk.css.map": "/static/css/main.3fa2395e.chunk.css.map"
   }
 }
