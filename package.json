@@ -2,7 +2,7 @@
   "name": "dt-ui-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "upside.down.pictures",
+  "homepage": "",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -26,6 +26,7 @@
     "@types/storybook__react": "^4.0.2",
     "autobind-decorator": "^2.4.0",
     "bootstrap": "^4.3.1",
+    "lint-staged": "^9.4.1",
     "load-awesome-react-components": "^1.1.2",
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.12",
